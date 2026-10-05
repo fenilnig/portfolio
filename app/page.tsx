@@ -547,9 +547,6 @@ export default function Home() {
               <span className="text-[var(--gold)]">f/1.8 SONY A6700</span>
             </div>
 
-            <span className="hero-tag fi">
-              Mumbai, India — Creator · Filmmaker · BTech CS (AIML) · Builder
-            </span>
             <div className="fi" style={{ transitionDelay: "0.1s" }}>
               <h1 className="hero-name">
                 FENIL
