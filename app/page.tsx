@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { SiteMotion, HeroShader } from "./motion";
 import { Aperture, Smartphone, Crosshair, Camera, Lightbulb, Target, Megaphone, Image as ImageIcon, Tag, Users, Telescope, AppWindow, Axis3d, Mic, Mic2, FileJson } from "lucide-react";
 
 const tracks = [
@@ -132,7 +133,7 @@ function ProjectCard({ tag, title, description, tech, href }: {
   href?: string;
 }) {
   return (
-    <div className="flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.25rem" }}>
+    <div className="spotlight flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.25rem" }}>
       <span className="font-mono text-[10px] tracking-widest uppercase text-[var(--gold)]">{tag}</span>
       <h3 className="font-sans text-2xl tracking-wide text-[var(--off-white)]" style={{ marginTop: "0.6rem" }}>{title}</h3>
       <p className="text-[13px] text-[var(--muted)] leading-relaxed" style={{ marginTop: "0.4rem" }}>{description}</p>
@@ -518,6 +519,8 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="hero">
+        <SiteMotion />
+        <HeroShader />
         <div className="hero-bg-text" aria-hidden="true">
           FENIL
         </div>
@@ -875,6 +878,7 @@ export default function Home() {
         </h2>
 
         <div className="timeline">
+          <div className="tl-progress" aria-hidden="true" />
           {/* Chapter 08 — m33: Deeptech Builders */}
           <div className="tl-item">
             <div className="tl-dot" style={{ backgroundColor: "var(--gold)", borderColor: "var(--gold)" }}></div>
@@ -1272,7 +1276,7 @@ export default function Home() {
 
         {/* Notable freelance clients */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <div className="border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] p-6 rounded transition-colors fi" style={{ transitionDelay: "0.15s" }}>
+          <div className="spotlight border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] p-6 rounded transition-colors fi" style={{ transitionDelay: "0.15s" }}>
             <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--gold)] mb-2">// Podcast Editor</div>
             <h3 className="font-sans text-2xl tracking-wide text-[var(--off-white)] mb-3">Gamechangers of India</h3>
             <p className="text-[var(--off-white)] opacity-90 text-sm leading-relaxed">
@@ -1286,7 +1290,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] p-6 rounded transition-colors fi" style={{ transitionDelay: "0.2s" }}>
+          <div className="spotlight border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] p-6 rounded transition-colors fi" style={{ transitionDelay: "0.2s" }}>
             <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--gold)] mb-2">// Launch Videos</div>
             <h3 className="font-sans text-2xl tracking-wide text-[var(--off-white)] mb-3">Deeptech Startups</h3>
             <p className="text-[var(--off-white)] opacity-90 text-sm leading-relaxed">
@@ -1311,7 +1315,7 @@ export default function Home() {
 
         {/* Spacing is inline: the unlayered margin/padding reset in globals.css overrides Tailwind spacing utilities */}
         {/* Featured: Autonomous Robotic Cinematographer */}
-        <div className="relative border border-[var(--gold)]/50 bg-[var(--surface)] rounded-md max-w-5xl overflow-hidden fi" style={{ marginTop: "2rem", padding: "1.75rem", transitionDelay: "0.05s" }}>
+        <div className="spotlight relative border border-[var(--gold)]/50 bg-[var(--surface)] rounded-md max-w-5xl overflow-hidden fi" style={{ marginTop: "2rem", padding: "1.75rem", transitionDelay: "0.05s" }}>
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_85%_0%,rgba(200,151,58,0.12),transparent_55%)]" />
 
           <div className="relative flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] tracking-widest uppercase">
@@ -1406,7 +1410,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl" style={{ marginTop: "1rem" }}>
           {/* Editing Console */}
-          <div className="group relative flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.5rem", transitionDelay: "0.1s" }}>
+          <div className="spotlight group relative flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.5rem", transitionDelay: "0.1s" }}>
             <div className="flex items-center justify-between font-mono text-[10px] tracking-widest uppercase">
               <span className="text-[var(--gold)]">// Hardware</span>
               <span className="flex items-center gap-1.5 text-[var(--off-white)]/80">
@@ -1463,7 +1467,7 @@ export default function Home() {
           </div>
 
           {/* Music Player */}
-          <div className="group relative flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.5rem", transitionDelay: "0.2s" }}>
+          <div className="spotlight group relative flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.5rem", transitionDelay: "0.2s" }}>
             <div className="flex items-center justify-between font-mono text-[10px] tracking-widest uppercase">
               <span className="text-[var(--gold)]">// Software</span>
               <span className="flex items-center gap-1.5 text-[var(--off-white)]/80">
