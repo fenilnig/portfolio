@@ -1310,7 +1310,101 @@ export default function Home() {
         </h2>
 
         {/* Spacing is inline: the unlayered margin/padding reset in globals.css overrides Tailwind spacing utilities */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl" style={{ marginTop: "2rem" }}>
+        {/* Featured: Autonomous Robotic Cinematographer */}
+        <div className="relative border border-[var(--gold)]/50 bg-[var(--surface)] rounded-md max-w-5xl overflow-hidden fi" style={{ marginTop: "2rem", padding: "1.75rem", transitionDelay: "0.05s" }}>
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_85%_0%,rgba(200,151,58,0.12),transparent_55%)]" />
+
+          <div className="relative flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] tracking-widest uppercase">
+            <span className="text-[var(--gold)]">// Robotics × Cinema — BTech Year 3</span>
+            <span className="flex items-center gap-1.5 text-[var(--off-white)]/80">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)] animate-pulse" />
+              In Development
+            </span>
+          </div>
+
+          <h3 className="relative font-sans text-4xl sm:text-5xl tracking-wide text-[var(--off-white)] leading-none" style={{ marginTop: "0.9rem" }}>
+            Autonomous Robotic Cinematographer
+          </h3>
+          <p className="relative font-serif italic text-lg text-[var(--gold)]" style={{ marginTop: "0.4rem" }}>
+            An AI second camera operator, on wheels.
+          </p>
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-6" style={{ marginTop: "1.25rem" }}>
+            <div className="lg:col-span-3">
+              <p className="text-sm text-[var(--off-white)]/90 leading-relaxed">
+                Where my two worlds meet — years behind the camera as a shooter and on-set gimbal operator, and a front-row seat to rover engineering with Team Mushak at NASA HERC. This is an autonomous ground dolly that carries my <strong className="text-[var(--gold)]">Sony a6700</strong> rig, finds and follows a subject on its own, and keeps the shot framed and stable — the job a second camera operator does on set.
+              </p>
+
+              <ul className="text-sm text-[var(--muted)] leading-relaxed space-y-2" style={{ marginTop: "1rem" }}>
+                <li className="flex gap-3">
+                  <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>01</span>
+                  <span><strong className="text-[var(--off-white)]">Active subject tracking</strong> — quantized YOLOv8n detection with Rule-of-Thirds framing control, keeping the subject at a 2 m standoff.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>02</span>
+                  <span><strong className="text-[var(--off-white)]">2-axis stabilized gimbal</strong> — MPU6050 IMU + Madgwick filter at 100 Hz holding the horizon through pitch and roll.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>03</span>
+                  <span><strong className="text-[var(--off-white)]">Ackermann steering + rear torque vectoring</strong> — an electronic differential for tight, scrub-free turns and smooth parallax moves.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>04</span>
+                  <span><strong className="text-[var(--off-white)]">Director&apos;s web app</strong> — live MJPEG feed and four shooting modes: Active Follow, Parallax Orbit, Dolly In/Out, and Manual joystick. ToF-based emergency braking under 25 cm.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="lg:col-span-2 flex flex-col gap-3">
+              <div className="font-mono text-[10px] tracking-widest uppercase text-[var(--muted)]">Design targets</div>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  ["< 50 ms", "Tracking latency"],
+                  ["< 5%", "Framing deviation"],
+                  ["< 0.1°", "Gimbal jitter"],
+                  ["< 30 cm", "Stop from 1.5 m/s"],
+                ].map(([value, label]) => (
+                  <div key={label} className="border border-[var(--dim)] rounded" style={{ padding: "0.7rem 0.8rem" }}>
+                    <div className="font-sans text-2xl text-[var(--off-white)] leading-none">{value}</div>
+                    <div className="font-mono text-[9px] tracking-widest uppercase text-[var(--muted)]" style={{ marginTop: "0.35rem" }}>{label}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="font-mono text-[10px] tracking-widest uppercase text-[var(--muted)] leading-relaxed" style={{ marginTop: "0.25rem" }}>
+                1.12 kg camera payload · 160 mm track · 260 mm wheelbase · 3S LiPo
+              </div>
+            </div>
+          </div>
+
+          {/* Roadmap */}
+          <div className="relative grid grid-cols-2 sm:grid-cols-5 gap-2" style={{ marginTop: "1.5rem" }}>
+            {[
+              ["Review 1", "Steering, torque vectoring, teleop"],
+              ["Review 2", "IMU + gimbal stabilization"],
+              ["Review 3", "YOLOv8n tracking + AEB"],
+              ["Testing", "Latency, framing, braking, jitter"],
+              ["Final Demo", "Outdoor follow-me sequence"],
+            ].map(([stage, desc], i) => (
+              <div key={stage} className="border-t-2 border-[var(--dim)]" style={{ paddingTop: "0.6rem" }}>
+                <div className="font-mono text-[10px] tracking-widest uppercase text-[var(--gold)]">{String(i + 1).padStart(2, "0")} · {stage}</div>
+                <div className="text-[12px] text-[var(--muted)] leading-snug" style={{ marginTop: "0.25rem" }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative tl-badges" style={{ marginTop: "1.5rem" }}>
+            <span className="badge gold">YOLOv8n</span>
+            <span className="badge">Madgwick Filter</span>
+            <span className="badge">PID Control</span>
+            <span className="badge">Ackermann Steering</span>
+            <span className="badge">Torque Vectoring</span>
+            <span className="badge">Arduino UNO Q</span>
+            <span className="badge">Sony a6700</span>
+            <span className="badge">Self Driving Cars — CIA 1 &amp; 2</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl" style={{ marginTop: "1rem" }}>
           {/* Editing Console */}
           <div className="group relative flex flex-col border border-[var(--dim)] hover:border-[var(--gold)]/60 bg-[var(--surface)] rounded-md transition-colors duration-300 fi" style={{ padding: "1.5rem", transitionDelay: "0.1s" }}>
             <div className="flex items-center justify-between font-mono text-[10px] tracking-widest uppercase">
@@ -1403,7 +1497,7 @@ export default function Home() {
           <ProjectCard
             tag="// Creator Tool · Web"
             title="Content Gap Analyzer"
-            description="Finds videos posted on YouTube but never on Instagram (and vice versa) by matching the content itself — perceptual video hashes and audio fingerprints, not titles."
+            description="Pulls every upload from my YouTube channel and every reel from Instagram, then shows exactly which videos never got cross-posted. Video-hash and audio-fingerprint matching in progress."
             tech={["FastAPI", "Next.js", "YouTube & IG APIs"]}
             href="https://github.com/fenilnig/content-gap-analyzer"
           />
