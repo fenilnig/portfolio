@@ -107,16 +107,15 @@ export function SiteMotion() {
   return null;
 }
 
-const INTRO_SECONDS = 3;
-const INTRO_EXIT = 0.6;
-// The cinematic leader counts 8 → 2 over 7s of its own time and then flashes;
-// run it fast enough that the whole countdown lands just before the exit fade.
-const INTRO_LEADER_SPEED = 2.8;
+// Countdown 3 → 2 → 1 at normal speed (one number per second), then the leader's flash
+const INTRO_COUNT_FROM = 3;
+const INTRO_EXIT = 0.4;
 
 /**
- * Full-screen loading intro: ThreeUI's cinematic film-leader CrtBackground for ~3 seconds,
- * then a GSAP fade/zoom-out into the site. Click or any key skips it. Unmounts afterwards so
- * the WebGL renderer stops; a CSS failsafe (.film-intro) hides it even if JS never runs.
+ * Full-screen loading intro: ThreeUI's cinematic film-leader CrtBackground counting 3 → 1 in
+ * real time, then a GSAP fade/zoom-out into the site as the flash hits. Click or any key skips
+ * it. Unmounts afterwards so the WebGL renderer stops; a CSS failsafe (.film-intro) hides it
+ * even if JS never runs.
  */
 export function FilmIntro() {
   const [show, setShow] = useState(true);
@@ -149,10 +148,9 @@ export function FilmIntro() {
       backstop = window.setTimeout(finish, INTRO_EXIT * 1000 + 250);
     };
 
-    // Count from page open (performance.now() starts at navigation), not from React mount,
-    // so the visitor waits ~3s in total; keep at least 0.8s on screen after a slow load.
-    const holdMs = Math.max(800, (INTRO_SECONDS - INTRO_EXIT) * 1000 - performance.now());
-    const timer = window.setTimeout(leave, holdMs);
+    // The leader's clock starts when it mounts (same tick as this effect), so leave exactly
+    // when its countdown reaches the flash.
+    const timer = window.setTimeout(leave, INTRO_COUNT_FROM * 1000);
     el.addEventListener("click", leave);
     window.addEventListener("keydown", leave);
     return () => {
@@ -169,7 +167,8 @@ export function FilmIntro() {
     <div ref={ref} className="film-intro" aria-hidden="true">
       <CrtBackground
         variant="cinematic"
-        speed={INTRO_LEADER_SPEED}
+        speed={1.00}
+        countFrom={INTRO_COUNT_FROM}
         motion={1.00}
         hue={0}
         saturation={1.00}

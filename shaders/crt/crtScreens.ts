@@ -59,7 +59,8 @@ export const CRT_STYLES: Record<CrtVariant, CrtStyle> = {
   },
 };
 
-export type ScreenPainter = (context: CanvasRenderingContext2D, width: number, height: number, time: number) => void;
+/* LOCAL CHANGE: painters receive the live options so the cinematic leader can honour `countFrom` */
+export type ScreenPainter = (context: CanvasRenderingContext2D, width: number, height: number, time: number, options?: { countFrom?: number }) => void;
 
 const MONO_STACK = 'ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace';
 const GROTESQUE_STACK = '"Helvetica Neue", "Inter", Helvetica, Arial, sans-serif';
@@ -77,11 +78,15 @@ function registrationMark(context: CanvasRenderingContext2D, x: number, y: numbe
   context.beginPath(); context.arc(x, y, size * 0.52, 0, Math.PI * 2); context.stroke();
 }
 
-const paintCinematic: ScreenPainter = (context, width, height, time) => {
+const paintCinematic: ScreenPainter = (context, width, height, time, options) => {
   const bar = height * 0.112, top = bar, bottom = height - bar, frameHeight = bottom - top;
   const cx = width / 2, cy = top + frameHeight / 2, radius = frameHeight * 0.325;
-  const phase = ((time % CINEMATIC_CYCLE) + CINEMATIC_CYCLE) % CINEMATIC_CYCLE, counting = phase < 7;
-  const label = Math.max(2, 9 - Math.ceil(phase || 0.0001));
+  /* LOCAL CHANGE: `countFrom` (> 0) runs a one-shot countdown countFrom → 1, one number per
+     second, then holds on the flash with no title card. Unset/0 keeps the authored 8 → 2 loop. */
+  const countFrom = options?.countFrom ?? 0, oneShot = countFrom > 0;
+  const phase = oneShot ? Math.max(0, time) : ((time % CINEMATIC_CYCLE) + CINEMATIC_CYCLE) % CINEMATIC_CYCLE;
+  const countEnd = oneShot ? countFrom : 7, counting = phase < countEnd;
+  const label = oneShot ? countFrom - Math.floor(phase) : Math.max(2, 9 - Math.ceil(phase || 0.0001));
 
   const wash = context.createLinearGradient(0, top, 0, bottom);
   wash.addColorStop(0, "#101013"); wash.addColorStop(0.55, "#08080a"); wash.addColorStop(1, "#0d0d10");
@@ -128,8 +133,10 @@ const paintCinematic: ScreenPainter = (context, width, height, time) => {
     context.fillText(String(label), cx, cy + radius * 0.02);
     context.shadowBlur = 0;
   } else {
-    const flash = Math.max(0, 1 - (phase - 7) / 0.10);
+    const flash = Math.max(0, 1 - (phase - countEnd) / 0.10);
     if (flash > 0) { context.fillStyle = `rgba(250,250,252,${(flash * 0.62).toFixed(3)})`; context.fillRect(0, top, width, frameHeight); }
+  }
+  if (!counting && !oneShot) {
     context.textAlign = "center"; context.textBaseline = "middle";
     context.fillStyle = "rgba(244,244,248,0.92)";
     const size = height * 0.052;

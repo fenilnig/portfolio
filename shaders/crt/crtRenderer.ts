@@ -2,8 +2,9 @@ import { CRT_SCREENS, CRT_STYLES, type CrtStyle, type CrtVariant } from "./crtSc
 import { CRT_FRAGMENT_SHADER, CRT_VERTEX_SHADER } from "./crtShaders";
 
 export const CRT_VARIANTS = ["terminal", "cinematic", "blue-screen", "nintendo"] as const;
-export type CrtOptions = { variant: CrtVariant; speed: number; typeSpeed: number; motion: number; brightness: number; opacity: number; hue: number; saturation: number };
-export const CRT_DEFAULTS: CrtOptions = { variant: "terminal", speed: 1, typeSpeed: 1, motion: 1, brightness: 1, opacity: 1, hue: 0, saturation: 1 };
+/* LOCAL CHANGE: `countFrom` added (cinematic only) — see paintCinematic in crtScreens.ts */
+export type CrtOptions = { variant: CrtVariant; speed: number; typeSpeed: number; motion: number; brightness: number; opacity: number; hue: number; saturation: number; countFrom: number };
+export const CRT_DEFAULTS: CrtOptions = { variant: "terminal", speed: 1, typeSpeed: 1, motion: 1, brightness: 1, opacity: 1, hue: 0, saturation: 1, countFrom: 0 };
 export const crtStyle = (variant: CrtVariant): CrtStyle => CRT_STYLES[variant] ?? CRT_STYLES.terminal;
 type Segment = { t: string; c: "p" | "d" | "a" | "h" };
 const segment = (text: string, color: Segment["c"] = "p"): Segment => ({ t: text, c: color }); const dots = (count: number) => "·".repeat(count);
@@ -53,7 +54,7 @@ export function createCrtRenderer(host: HTMLElement, canvas: HTMLCanvasElement, 
       if (requested !== variant) { variant = requested; style = crtStyle(variant); applyStyle(); typed = 0; done = false; lastReveal = -1; lastBlink = -1; lastTextAt = 0; resize(); }
       const seconds = (now - startedAt) * 0.001 * options.speed;
       if (variant === "terminal") { if (!done) { typed += 4.4 * options.typeSpeed; if (typed >= TOTAL) { typed = TOTAL; done = true; } } maybeRedrawText(now); }
-      else if (now - lastTextAt >= style.redrawMs || textDirty) { CRT_SCREENS[variant](textContext, width, height, seconds); lastTextAt = now; textDirty = true; }
+      else if (now - lastTextAt >= style.redrawMs || textDirty) { CRT_SCREENS[variant](textContext, width, height, seconds, options); lastTextAt = now; textDirty = true; }
       if (textDirty) uploadTexture();
       gl.useProgram(program); gl.uniform1f(uTime, seconds); gl.uniform1f(uMotion, options.motion); gl.drawArrays(gl.TRIANGLES, 0, 3);
     },
