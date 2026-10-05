@@ -528,19 +528,6 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero">
         <SiteMotion />
-        {theme === 'broadcast' && (
-          <div className="shader-frame" aria-hidden="true">
-            <CrtBackground
-              variant="blue-screen"
-              speed={1.00}
-              motion={1.00}
-              hue={0}
-              saturation={1.00}
-              brightness={1.00}
-              opacity={1.00}
-            />
-          </div>
-        )}
         <div className="hero-bg-text" aria-hidden="true">
           FENIL
         </div>
@@ -606,22 +593,44 @@ export default function Home() {
             </div>
           </div>
           
-          {/* Profile Picture Column */}
-          <div className="w-full md:w-80 shrink-0 flex justify-center md:justify-end pb-4 fi" style={{ transitionDelay: "0.25s" }}>
-            <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded-lg">
-              {/* Viewfinder brackets */}
-              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
-              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
-              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
-              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
+          {/* Profile Picture Column — in the Broadcast theme it becomes a CRT monitor showing ThreeUI's blue screen */}
+          {/* className must stay static: the .fi observer adds "v" to this element, and a changing
+              className prop would make React drop it (hiding the column) on theme switch */}
+          <div className="w-full md:w-auto shrink-0 flex justify-center md:justify-end pb-4 fi" style={{ transitionDelay: "0.25s" }}>
+            {theme === 'broadcast' ? (
+              <div className="crt-monitor" aria-hidden="true">
+                <div className="crt-monitor-screen">
+                  <CrtBackground
+                    variant="blue-screen"
+                    speed={1.00}
+                    motion={1.00}
+                    hue={0}
+                    saturation={1.00}
+                    brightness={1.00}
+                    opacity={1.00}
+                  />
+                </div>
+                <div className="crt-monitor-bar">
+                  <span>CH 01 · Signal Halted</span>
+                  <span className="crt-monitor-led" />
+                </div>
+              </div>
+            ) : (
+              <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded-lg">
+                {/* Viewfinder brackets */}
+                <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[var(--gold)] z-20 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"></div>
 
-              <img 
-                src="/assets/hero/v2_img_4.jpg" 
-                alt="Blue Hero Silhouette" 
-                className="w-64 h-64 md:w-80 md:h-80 object-cover grayscale group-hover:grayscale-0 transition-all duration-500 -scale-x-100 scale-y-100 group-hover:-scale-x-[1.05] group-hover:scale-y-105" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-35 transition-opacity duration-300"></div>
-            </div>
+                <img 
+                  src="/assets/hero/v2_img_4.jpg" 
+                  alt="Blue Hero Silhouette" 
+                  className="w-64 h-64 md:w-80 md:h-80 object-cover grayscale group-hover:grayscale-0 transition-all duration-500 -scale-x-100 scale-y-100 group-hover:-scale-x-[1.05] group-hover:scale-y-105" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-35 transition-opacity duration-300"></div>
+              </div>
+            )}
           </div>
         </div>
 
