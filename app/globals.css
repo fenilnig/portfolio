@@ -59,18 +59,6 @@
   --nav-gradient: rgba(4,8,15,0.95);
 }
 
-/* Broadcast theme — saturated broadcast blue with test-card yellow; hero shows ThreeUI's blue-screen CRT */
-:root.broadcast-theme {
-  --black: #060b2e;
-  --off-white: #eef1ff;
-  --red: #ff5a5a;
-  --gold: #ffd23f;
-  --dim: #1d2a78;
-  --muted: #8e9be0;
-  --surface: #0b1550;
-  --nav-gradient: rgba(6,11,46,0.95);
-}
-
 /* Reset lives in the base layer so Tailwind spacing utilities (p-*, m-*) can override it */
 @layer base {
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -127,9 +115,6 @@ body::before {
 }
 :root.teal-theme body::before {
   background: radial-gradient(ellipse at center, transparent 35%, rgba(2,6,12,0.7) 100%);
-}
-:root.broadcast-theme body::before {
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(2,4,20,0.65) 100%);
 }
 ::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: var(--black); }
@@ -438,36 +423,3 @@ footer { border-top: 1px solid var(--dim); padding: 2rem 3rem; display: flex; ju
 @media (prefers-reduced-motion: reduce) {
   .spotlight::before, .spotlight::after { display: none; }
 }
-
-/* ── BROADCAST THEME HERO ─────────────────────────────────── */
-/* Clean broadcast-blue backdrop with faint scanlines; nothing sits behind the hero copy */
-:root.broadcast-theme #hero {
-  background:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 4px),
-    radial-gradient(ellipse 60% 70% at 78% 45%, rgba(40,64,220,0.45), transparent 70%),
-    var(--black);
-}
-/* Glitch layers in colours that survive the blue (the default teal slice vanishes) */
-:root.broadcast-theme h1.hero-name .gr { color: var(--red); opacity: 0.7; }
-:root.broadcast-theme h1.hero-name .gb { color: var(--gold); opacity: 0.55; }
-
-/* CRT monitor housing ThreeUI's blue-screen CrtBackground (replaces the photo card in this theme) */
-.crt-monitor {
-  width: 460px; max-width: 100%; padding: 14px 14px 10px; border-radius: 20px;
-  background: linear-gradient(160deg, #1a2466, #0a1035 70%);
-  border: 1px solid var(--dim);
-  box-shadow: 0 30px 80px rgba(0,2,20,0.65), 0 0 60px rgba(40,64,220,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
-}
-.crt-monitor-screen {
-  position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: #050a24;
-  box-shadow: inset 0 0 0 2px #050817, inset 0 0 40px rgba(0,0,0,0.75);
-}
-.crt-monitor-bar {
-  display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding: 0 4px;
-  font-family: var(--font-ibm-plex), monospace; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--muted);
-}
-.crt-monitor-led { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 8px var(--red); animation: crt-led 2s ease-in-out infinite; }
-@keyframes crt-led { 50% { opacity: 0.35; } }
-@media (max-width: 1280px) { .crt-monitor { width: 400px; } }
-@media (prefers-reduced-motion: reduce) { .crt-monitor-led { animation: none; } }
