@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { SiteMotion, HeroShader } from "./motion";
+import { SiteMotion } from "./motion";
+import { CrtBackground } from "@/shaders/crt/CrtBackground";
 import { Aperture, Smartphone, Crosshair, Camera, Lightbulb, Target, Megaphone, Image as ImageIcon, Tag, Users, Telescope, AppWindow, Axis3d, Mic, Mic2, FileJson } from "lucide-react";
 
 const tracks = [
@@ -520,7 +521,17 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero">
         <SiteMotion />
-        <HeroShader />
+        <div className="shader-frame" aria-hidden="true">
+          <CrtBackground
+            variant="cinematic"
+            speed={1.00}
+            motion={1.00}
+            hue={0}
+            saturation={1.00}
+            brightness={1.00}
+            opacity={1.00}
+          />
+        </div>
         <div className="hero-bg-text" aria-hidden="true">
           FENIL
         </div>

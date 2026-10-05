@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -22,6 +22,7 @@ function parseStat(text: string) {
  * - section titles rise in letter by letter
  * - the Grind timeline line draws itself as you scroll
  * - hero stats count up on load
+ * - hero: projector warm-up of the CRT film leader on load, then a dolly-in + parallax on scroll
  * Renders nothing; skipped entirely for prefers-reduced-motion.
  */
 export function SiteMotion() {
@@ -71,6 +72,25 @@ export function SiteMotion() {
       });
     });
 
+    // Hero intro: the film leader flickers on like a projector warming up, then the name rises in.
+    // Only .hero-name is tweened — elements with .fi already have CSS opacity/transform transitions,
+    // which fight GSAP tweens on the same properties.
+    const frame = document.querySelector<HTMLElement>("#hero .shader-frame");
+    const heroContent = document.querySelector<HTMLElement>("#hero > .relative");
+    if (frame) {
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .fromTo(frame, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.6, ease: "expo.out" })
+        .to(frame, { opacity: 0.55, duration: 0.06, repeat: 3, yoyo: true, ease: "none" }, 0.15)
+        .from("#hero .hero-name", { yPercent: 25, opacity: 0, duration: 1, clearProps: "opacity,transform" }, 0.35);
+
+      // Scrolling out of the hero: the leader dollies in and fades while the text drifts up faster (parallax)
+      gsap
+        .timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 0.8 } })
+        .to(frame, { scale: 1.18, opacity: 0.25, ease: "none" }, 0)
+        .to(heroContent, { yPercent: -18, ease: "none" }, 0);
+    }
+
     // Layout shifts (expanding chapters, lazy images) move trigger positions
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
@@ -91,177 +111,4 @@ export function SiteMotion() {
   }, []);
 
   return null;
-}
-
-const VERT = `
-attribute vec2 p;
-void main() { gl_Position = vec4(p, 0.0, 1.0); }
-`;
-
-// Film grain + drifting light leak + anamorphic streak pulled toward the cursor
-const FRAG = `
-precision mediump float;
-uniform vec2 uRes;
-uniform float uTime;
-uniform vec2 uMouse;
-uniform vec3 uAccent;
-uniform float uStrength;
-
-float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
-float noise(vec2 p) {
-  vec2 i = floor(p), f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(mix(hash(i), hash(i + vec2(1, 0)), u.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), u.x), u.y);
-}
-
-void main() {
-  vec2 uv = gl_FragCoord.xy / uRes;
-  vec2 asp = vec2(uRes.x / uRes.y, 1.0);
-  float t = uTime * 0.06;
-
-  // Slow organic light leak from the top-right, warped by noise
-  vec2 leakPos = vec2(0.82 + 0.06 * sin(t * 2.0), 0.78 + 0.05 * cos(t * 1.6));
-  float warp = noise(uv * 3.0 + t) * 0.25;
-  float leak = smoothstep(0.75, 0.0, length((uv - leakPos) * asp) + warp);
-
-  // Horizontal anamorphic streak that follows the cursor's height and leans toward it
-  float streakY = mix(0.62, uMouse.y, 0.35);
-  float streak = exp(-pow((uv.y - streakY) * 28.0, 2.0)) * smoothstep(0.0, 1.0, 1.0 - abs(uv.x - uMouse.x) * 1.1);
-
-  // Soft glow around the cursor
-  float glow = smoothstep(0.45, 0.0, length((uv - uMouse) * asp));
-
-  // Animated film grain
-  float grain = hash(uv * uRes + fract(uTime * 7.0) * 100.0) - 0.5;
-
-  float light = leak * 0.5 + streak * 0.22 + glow * 0.2;
-  // Grain kept faint: the page already has a global grain overlay (body::after)
-  vec3 col = uAccent * light + grain * 0.03;
-  float alpha = clamp(light * 0.9 + abs(grain) * 0.05, 0.0, 1.0) * uStrength;
-  gl_FragColor = vec4(col * uStrength, alpha);
-}
-`;
-
-function readAccent(): { rgb: [number, number, number]; light: boolean } {
-  const cs = getComputedStyle(document.documentElement);
-  const toRgb = (hex: string): [number, number, number] => {
-    const h = hex.trim().replace("#", "");
-    const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
-    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
-  };
-  const bg = toRgb(cs.getPropertyValue("--black") || "#070707");
-  return { rgb: toRgb(cs.getPropertyValue("--gold") || "#c8973a"), light: bg[0] + bg[1] + bg[2] > 1.5 };
-}
-
-/**
- * WebGL hero background in the spirit of ThreeUI shader backgrounds, written as a single
- * raw-WebGL fragment shader to avoid shipping all of three.js. Pauses when the hero is
- * offscreen or the tab is hidden; draws one still frame for prefers-reduced-motion.
- */
-export function HeroShader() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const gl = canvas.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false });
-    if (!gl) return;
-
-    const compile = (type: number, src: string) => {
-      const s = gl.createShader(type)!;
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      return s;
-    };
-    const prog = gl.createProgram()!;
-    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
-    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
-    gl.useProgram(prog);
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    const loc = gl.getAttribLocation(prog, "p");
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-
-    const uRes = gl.getUniformLocation(prog, "uRes");
-    const uTime = gl.getUniformLocation(prog, "uTime");
-    const uMouse = gl.getUniformLocation(prog, "uMouse");
-    const uAccent = gl.getUniformLocation(prog, "uAccent");
-    const uStrength = gl.getUniformLocation(prog, "uStrength");
-
-    // Render below native resolution — it's grain and glow, sharpness doesn't matter
-    const resize = () => {
-      const scale = Math.min(window.devicePixelRatio, 1) * 0.6;
-      canvas.width = Math.max(1, Math.floor(canvas.clientWidth * scale));
-      canvas.height = Math.max(1, Math.floor(canvas.clientHeight * scale));
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const mouse = { x: 0.7, y: 0.6, tx: 0.7, ty: 0.6 };
-    const onMove = (e: PointerEvent) => {
-      const r = canvas.getBoundingClientRect();
-      mouse.tx = (e.clientX - r.left) / r.width;
-      mouse.ty = 1 - (e.clientY - r.top) / r.height;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-
-    let accent = readAccent();
-    const themeObserver = new MutationObserver(() => (accent = readAccent()));
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style", "data-theme"] });
-
-    const reduced = prefersReducedMotion();
-    let raf = 0;
-    let visible = true;
-    const start = performance.now();
-
-    const draw = () => {
-      mouse.x += (mouse.tx - mouse.x) * 0.06;
-      mouse.y += (mouse.ty - mouse.y) * 0.06;
-      gl.clearColor(0, 0, 0, 0);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uTime, reduced ? 0 : (performance.now() - start) / 1000);
-      gl.uniform2f(uMouse, mouse.x, mouse.y);
-      gl.uniform3f(uAccent, ...accent.rgb);
-      gl.uniform1f(uStrength, accent.light ? 0.35 : 0.8);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    };
-    const loop = () => {
-      draw();
-      if (visible && !document.hidden) raf = requestAnimationFrame(loop);
-      else raf = 0;
-    };
-    const resume = () => {
-      if (!reduced && visible && !document.hidden && !raf) raf = requestAnimationFrame(loop);
-    };
-
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      resume();
-    });
-    io.observe(canvas);
-    document.addEventListener("visibilitychange", resume);
-
-    if (reduced) draw();
-    else resume();
-
-    return () => {
-      cancelAnimationFrame(raf);
-      io.disconnect();
-      themeObserver.disconnect();
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("visibilitychange", resume);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="hero-shader" aria-hidden="true" />;
 }

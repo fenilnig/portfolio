@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, IBM_Plex_Mono, Cormorant_Garamond } from "next/font/google";
+import "@/shaders/threeui.css";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
