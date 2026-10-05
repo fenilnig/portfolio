@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { SiteMotion, FilmIntro } from "./motion";
+import { CrtBackground } from "@/shaders/crt/CrtBackground";
 import { Aperture, Smartphone, Crosshair, Camera, Lightbulb, Target, Megaphone, Image as ImageIcon, Tag, Users, Telescope, AppWindow, Axis3d, Mic, Mic2, FileJson } from "lucide-react";
 
 const tracks = [
@@ -227,21 +228,23 @@ export default function Home() {
   const [isMusicMinimized, setIsMusicMinimized] = useState(false);
 
   // Theme State
-  const [theme, setTheme] = useState<'dark' | 'light' | 'teal'>('teal');
+  const [theme, setTheme] = useState<'dark' | 'light' | 'teal' | 'broadcast'>('teal');
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      document.documentElement.classList.remove('light-theme', 'teal-theme');
+      document.documentElement.classList.remove('light-theme', 'teal-theme', 'broadcast-theme');
       if (theme === 'light') {
         document.documentElement.classList.add('light-theme');
       } else if (theme === 'teal') {
         document.documentElement.classList.add('teal-theme');
+      } else if (theme === 'broadcast') {
+        document.documentElement.classList.add('broadcast-theme');
       }
     }
   }, [theme]);
 
   const cycleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : prev === 'light' ? 'teal' : 'dark');
+    setTheme(prev => prev === 'dark' ? 'light' : prev === 'light' ? 'teal' : prev === 'teal' ? 'broadcast' : 'dark');
   };
   const [showPhotography, setShowPhotography] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
@@ -457,12 +460,16 @@ export default function Home() {
           <li>
             <a href="#contact">Contact</a>
           </li>
-          <li>
-            <button onClick={cycleTheme} className="flex items-center justify-center w-6 h-6 rounded-full border border-[var(--dim)] hover:border-[var(--gold)] text-[var(--muted)] hover:text-[var(--gold)] transition-all cursor-none" title="Toggle Theme">
-              {theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '🎬'}
-            </button>
-          </li>
         </ul>
+        {/* Outside .nav-links so it stays visible on mobile, where the links are hidden */}
+        <button
+          onClick={cycleTheme}
+          className="theme-toggle"
+          title="Change theme"
+          aria-label={`Change theme (current: ${theme === 'dark' ? 'Dark' : theme === 'light' ? 'Light' : theme === 'teal' ? 'Cinema' : 'Broadcast'})`}
+        >
+          <span aria-hidden="true">{theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : theme === 'teal' ? '🎬' : '📺'}</span>
+        </button>
       </nav>
 
       {/* Music Player */}
@@ -521,6 +528,19 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero">
         <SiteMotion />
+        {theme === 'broadcast' && (
+          <div className="shader-frame" aria-hidden="true">
+            <CrtBackground
+              variant="blue-screen"
+              speed={1.00}
+              motion={1.00}
+              hue={0}
+              saturation={1.00}
+              brightness={1.00}
+              opacity={1.00}
+            />
+          </div>
+        )}
         <div className="hero-bg-text" aria-hidden="true">
           FENIL
         </div>

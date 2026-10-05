@@ -107,13 +107,15 @@ export function SiteMotion() {
   return null;
 }
 
-// Countdown 3 → 2 → 1 at normal speed (one number per second), then the leader's flash
+// Countdown 3 → 2 → 1 at normal speed (one number per second), then the flash and the
+// "FENIL SHAH" title card for a beat before the exit fade
 const INTRO_COUNT_FROM = 3;
+const INTRO_TITLE_HOLD = 0.8;
 const INTRO_EXIT = 0.4;
 
 /**
  * Full-screen loading intro: ThreeUI's cinematic film-leader CrtBackground counting 3 → 1 in
- * real time, then a GSAP fade/zoom-out into the site as the flash hits. Click or any key skips
+ * real time, a "FENIL SHAH" title card, then a GSAP fade/zoom-out into the site. Click or any key skips
  * it. Unmounts afterwards so the WebGL renderer stops; a CSS failsafe (.film-intro) hides it
  * even if JS never runs.
  */
@@ -148,9 +150,9 @@ export function FilmIntro() {
       backstop = window.setTimeout(finish, INTRO_EXIT * 1000 + 250);
     };
 
-    // The leader's clock starts when it mounts (same tick as this effect), so leave exactly
-    // when its countdown reaches the flash.
-    const timer = window.setTimeout(leave, INTRO_COUNT_FROM * 1000);
+    // The leader's clock starts when it mounts (same tick as this effect): countdown, then
+    // hold on the title card before leaving.
+    const timer = window.setTimeout(leave, (INTRO_COUNT_FROM + INTRO_TITLE_HOLD) * 1000);
     el.addEventListener("click", leave);
     window.addEventListener("keydown", leave);
     return () => {
@@ -175,7 +177,10 @@ export function FilmIntro() {
         brightness={1.00}
         opacity={1.00}
       />
-      <span className="film-intro-skip">Click or press any key to skip</span>
+      <span className="film-intro-skip">
+        <span className="skip-pointer">Click or press any key to skip</span>
+        <span className="skip-touch">Tap to skip</span>
+      </span>
     </div>
   );
 }

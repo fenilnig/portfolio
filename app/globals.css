@@ -59,6 +59,18 @@
   --nav-gradient: rgba(4,8,15,0.95);
 }
 
+/* Broadcast theme — saturated broadcast blue with test-card yellow; hero shows ThreeUI's blue-screen CRT */
+:root.broadcast-theme {
+  --black: #060b2e;
+  --off-white: #eef1ff;
+  --red: #ff5a5a;
+  --gold: #ffd23f;
+  --dim: #1d2a78;
+  --muted: #8e9be0;
+  --surface: #0b1550;
+  --nav-gradient: rgba(6,11,46,0.95);
+}
+
 /* Reset lives in the base layer so Tailwind spacing utilities (p-*, m-*) can override it */
 @layer base {
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -116,6 +128,9 @@ body::before {
 :root.teal-theme body::before {
   background: radial-gradient(ellipse at center, transparent 35%, rgba(2,6,12,0.7) 100%);
 }
+:root.broadcast-theme body::before {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(2,4,20,0.65) 100%);
+}
 ::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: var(--black); }
 ::-webkit-scrollbar-thumb { background: var(--gold); }
@@ -141,7 +156,18 @@ nav {
 }
 .nav-logo { font-family: var(--font-bebas), sans-serif; font-size: 1.3rem; letter-spacing: 0.25em; color: var(--off-white); text-decoration: none; }
 .nav-logo span { color: var(--gold); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; margin-left: auto; }
+/* Theme toggle lives outside .nav-links so it survives the mobile breakpoint */
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 36px; height: 36px; margin-left: 2.5rem; border-radius: 50%;
+  border: 1px solid var(--gold); background: var(--surface);
+  font-size: 16px; line-height: 1; cursor: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 12%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.theme-toggle:hover { transform: scale(1.08); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 25%, transparent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 .nav-links a { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
 .nav-links a:hover { color: var(--gold); }
 
@@ -355,6 +381,7 @@ footer { border-top: 1px solid var(--dim); padding: 2rem 3rem; display: flex; ju
 @media (max-width: 768px) {
   nav { padding: 1.2rem 1.5rem; }
   .nav-links { display: none; }
+  .theme-toggle { margin-left: auto; width: 40px; height: 40px; font-size: 18px; }
   #hero { padding: 0 1.5rem 3rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
   .sec { padding: 5rem 1.5rem; }
@@ -369,18 +396,26 @@ footer { border-top: 1px solid var(--dim); padding: 2rem 3rem; display: flex; ju
 
 /* ── MOTION LAYER (see app/motion.tsx) ───────────────────── */
 
+/* Broadcast theme: ThreeUI CrtBackground (blue-screen) filling the hero behind its content */
+.shader-frame { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
 /* 3-second loading intro: ThreeUI CrtBackground film leader (FilmIntro in motion.tsx).
    Sits under the page grain/vignette (9997–9998) and the custom cursor (10000).
    The delayed animation is a failsafe so the site is never stuck behind it without JS. */
 .film-intro {
   position: fixed; inset: 0; z-index: 9990; background: #07070a; cursor: pointer;
-  animation: film-intro-failsafe 0.01s linear 5s forwards;
+  animation: film-intro-failsafe 0.01s linear 6.5s forwards;
 }
 @keyframes film-intro-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 .film-intro-skip {
   position: absolute; left: 50%; bottom: 1.4rem; transform: translateX(-50%); z-index: 1;
   font-family: var(--font-ibm-plex), monospace; font-size: 0.55rem; letter-spacing: 0.35em;
   text-transform: uppercase; color: rgba(236,236,240,0.45); white-space: nowrap; pointer-events: none;
+}
+.film-intro-skip .skip-touch { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .film-intro-skip .skip-pointer { display: none; }
+  .film-intro-skip .skip-touch { display: inline; }
 }
 @media (prefers-reduced-motion: reduce) { .film-intro { display: none; } }
 

@@ -69,9 +69,12 @@ const pad = (value: number, size = 2) => String(Math.floor(value)).padStart(size
 /* ---------------------------------------------------------------- cinematic */
 
 const CINEMATIC_CYCLE = 8;
+/* LOCAL CHANGE: corner labels and title card personalised for Fenil Shah's portfolio */
 const CINEMATIC_CHROME = [
-  { text: "PICTURE START", corner: "tl" }, { text: "MONO · ACADEMY", corner: "bl" }, { text: "REEL 02 OF 04", corner: "br" },
+  { text: "PICTURE START", corner: "tl" }, { text: "SONY A6700 · 24 FPS", corner: "bl" }, { text: "MUMBAI · INDIA", corner: "br" },
 ] as const;
+const CINEMATIC_TITLE = "F E N I L   S H A H";
+const CINEMATIC_SUBTITLE = "C R E A T O R   ·   F I L M M A K E R   ·   B U I L D E R";
 
 function registrationMark(context: CanvasRenderingContext2D, x: number, y: number, size: number) {
   context.beginPath(); context.moveTo(x - size, y); context.lineTo(x + size, y); context.moveTo(x, y - size); context.lineTo(x, y + size); context.stroke();
@@ -82,7 +85,7 @@ const paintCinematic: ScreenPainter = (context, width, height, time, options) =>
   const bar = height * 0.112, top = bar, bottom = height - bar, frameHeight = bottom - top;
   const cx = width / 2, cy = top + frameHeight / 2, radius = frameHeight * 0.325;
   /* LOCAL CHANGE: `countFrom` (> 0) runs a one-shot countdown countFrom → 1, one number per
-     second, then holds on the flash with no title card. Unset/0 keeps the authored 8 → 2 loop. */
+     second, then the flash and title card. Unset/0 keeps the authored 8 → 2 loop. */
   const countFrom = options?.countFrom ?? 0, oneShot = countFrom > 0;
   const phase = oneShot ? Math.max(0, time) : ((time % CINEMATIC_CYCLE) + CINEMATIC_CYCLE) % CINEMATIC_CYCLE;
   const countEnd = oneShot ? countFrom : 7, counting = phase < countEnd;
@@ -136,22 +139,25 @@ const paintCinematic: ScreenPainter = (context, width, height, time, options) =>
     const flash = Math.max(0, 1 - (phase - countEnd) / 0.10);
     if (flash > 0) { context.fillStyle = `rgba(250,250,252,${(flash * 0.62).toFixed(3)})`; context.fillRect(0, top, width, frameHeight); }
   }
-  if (!counting && !oneShot) {
+  if (!counting) {
     context.textAlign = "center"; context.textBaseline = "middle";
     context.fillStyle = "rgba(244,244,248,0.92)";
-    const size = height * 0.052;
+    /* LOCAL CHANGE: size also capped by width so the longer title fits portrait screens */
+    const size = Math.min(height * 0.052, (width * 0.86) / (CINEMATIC_TITLE.length * 0.62));
     context.font = `500 ${size.toFixed(2)}px ${MONO_STACK}`;
-    const title = "T H E   L O N G   Q U I E T";
+    const title = CINEMATIC_TITLE;
     context.shadowColor = "rgba(255,255,255,0.45)"; context.shadowBlur = height * 0.020;
     /* clear of the horizontal crosshair, which otherwise rules through the baseline */
     context.fillText(title, cx, cy - size * 0.78);
     context.shadowBlur = 0;
-    context.font = `400 ${(size * 0.42).toFixed(2)}px ${MONO_STACK}`;
+    const subSize = Math.min(size * 0.42, (width * 0.86) / (CINEMATIC_SUBTITLE.length * 0.62));
+    context.font = `400 ${subSize.toFixed(2)}px ${MONO_STACK}`;
     context.fillStyle = "rgba(232,232,238,0.60)";
-    context.fillText("S C E N E   1 4   ·   T A K E   0 3", cx, cy + size * 0.62);
+    context.fillText(CINEMATIC_SUBTITLE, cx, cy + size * 0.62);
   }
 
-  const chromeSize = height * 0.0255;
+  /* LOCAL CHANGE: also capped by width so the longer corner labels don't collide on portrait screens */
+  const chromeSize = Math.min(height * 0.0255, width * 0.026);
   context.font = `500 ${chromeSize.toFixed(2)}px ${MONO_STACK}`; context.textBaseline = "middle"; context.fillStyle = "rgba(226,226,232,0.66)";
   for (const item of CINEMATIC_CHROME) {
     context.textAlign = item.corner.endsWith("l") ? "left" : "right";
