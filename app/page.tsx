@@ -1416,8 +1416,27 @@ export default function Home() {
             </div>
             <h3 className="font-sans text-3xl tracking-wide text-[var(--off-white)]" style={{ marginTop: "0.75rem" }}>Custom Editing Console</h3>
             <p className="text-sm text-[var(--muted)] leading-relaxed" style={{ marginTop: "0.5rem" }}>
-              A hardware control surface for video editing, designed and built from scratch — for a fraction of what commercial editing consoles cost.
+              A compact wireless macro console for DaVinci Resolve, After Effects and system shortcuts — designed and built from scratch in a &ldquo;tech-noir&rdquo; wedge enclosure, for a fraction of what commercial editing consoles cost.
             </p>
+
+            <ul className="text-sm text-[var(--off-white)]/90 leading-relaxed space-y-2" style={{ marginTop: "1.25rem" }}>
+              <li className="flex gap-3">
+                <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>01</span>
+                <span><strong className="text-[var(--off-white)]">Jog dial for scrubbing</strong> — ALPS EC11 encoder under a 40 mm aluminium knob, with acceleration curves for timeline scrubbing.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>02</span>
+                <span><strong className="text-[var(--off-white)]">9 mechanical macro keys</strong> — 3×3 matrix with per-key diodes for anti-ghosting.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>03</span>
+                <span><strong className="text-[var(--off-white)]">3.12&Prime; OLED + haptics</strong> — 256×64 display for layers, active tool and battery; a linear-resonant motor for tactile feedback.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-[var(--gold)] font-mono text-xs" style={{ paddingTop: 2 }}>04</span>
+                <span><strong className="text-[var(--off-white)]">Wireless</strong> — Bluetooth LE or USB HID, a 2000 mAh+ LiPo with pass-through charging, and deep sleep after 10 idle minutes.</span>
+              </li>
+            </ul>
 
             {/* Cost comparison */}
             <div className="font-mono text-[10px] tracking-widest uppercase" style={{ marginTop: "1.5rem" }}>
@@ -1437,8 +1456,9 @@ export default function Home() {
 
             <div className="tl-badges" style={{ marginTop: "auto", paddingTop: "1.5rem" }}>
               <span className="badge gold">~5× cheaper</span>
-              <span className="badge">Hardware</span>
-              <span className="badge">Editing Workflow</span>
+              <span className="badge">ESP32-S3</span>
+              <span className="badge">BLE HID</span>
+              <span className="badge">C++ / PlatformIO</span>
             </div>
           </div>
 
