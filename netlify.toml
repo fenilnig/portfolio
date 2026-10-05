@@ -1,0 +1,20 @@
+# Netlify deploys this site from GitHub: it runs the build and publishes the static export.
+# next.config.ts sets output: "export", so `npm run build` writes the finished site to out/.
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  # Next.js 16 needs Node.js 20.9 or newer
+  NODE_VERSION = "22"
+
+# Build output under /_next/static is content-hashed, so it can be cached forever
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

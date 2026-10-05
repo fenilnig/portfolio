@@ -225,6 +225,10 @@ export default function Home() {
   const [timeStr, setTimeStr] = useState("0:00");
   const [playlistOpen, setPlaylistOpen] = useState(false);
   const [isMusicMinimized, setIsMusicMinimized] = useState(false);
+  // The MP3s are kept out of the GitHub repo (copyright), so builds from GitHub have no music:
+  // hide the player instead of showing one that can't play
+  const [musicAvailable, setMusicAvailable] = useState(true);
+  const musicMissingRef = useRef(false);
 
   // Theme State
   const [theme, setTheme] = useState<'dark' | 'light' | 'teal'>('teal');
@@ -339,11 +343,20 @@ export default function Home() {
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("ended", handleEnded);
 
+    fetch(tracks[0].src, { method: "HEAD" })
+      .then((res) => {
+        if (res.ok) return;
+        musicMissingRef.current = true;
+        audio.pause();
+        setMusicAvailable(false);
+      })
+      .catch(() => {});
+
     // Attempt autoplay
     audio.play().catch(() => {
       // Autoplay blocked, wait for user interaction
       const playOnInteract = () => {
-        if (videoPlayingRef.current) return;
+        if (videoPlayingRef.current || musicMissingRef.current) return;
         audio.play().then(() => {
           document.removeEventListener("click", playOnInteract);
           document.removeEventListener("keydown", playOnInteract);
@@ -470,7 +483,7 @@ export default function Home() {
       </nav>
 
       {/* Music Player */}
-      <div className={`music-player ${isMusicMinimized ? "minimized" : ""}`} id="musicPlayer">
+      <div className={`music-player ${isMusicMinimized ? "minimized" : ""}`} id="musicPlayer" style={musicAvailable ? undefined : { display: "none" }}>
         {!isMusicMinimized ? (
           <>
             <div className="flex justify-between items-center mb-2">
