@@ -1,0 +1,325 @@
+        <div className="timeline">
+          {/* Chapter 07 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <img src="/assets/logos/atlas_logo_official.png" alt="Atlas Skilltech University" />
+              <span className="tl-logo-label">Atlas Skilltech University</span>
+            </div>
+            <div className="tl-year">Chapter 07 — Present</div>
+            <div className="tl-title">Social Media Intern &amp; Photographer</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Currently documenting Atlas Skilltech University and learning professional gimbal operation on live shoots.
+            </div>
+
+            <div className="mt-4 max-w-sm">
+              <div className="relative group overflow-hidden border border-zinc-800 hover:border-[#c8973a] transition-all duration-300 rounded">
+                <img src="/assets/grind/atlas-intern/sony_camera_user.jpg" alt="Sony A6700 B&W" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                <div className="absolute bottom-2 left-2 text-[10px] bg-black/75 px-2 py-0.5 rounded text-gray-400">Sony A6700 B&W 105mm</div>
+              </div>
+            </div>
+
+            <button onClick={() => toggleChapter(7)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[7] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[7] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  Currently shooting, creating, and managing content at <strong>Atlas Skilltech University</strong>. Documenting the institution — events, people, moments. Also part of the crew for MTW — learning gimbal operation on real shoots. Still building. Still posting. Still figuring out what comes next. The grind doesn't have an endpoint, it just changes shape.
+                </div>
+                <div className="tl-badges">
+                  <span className="badge gold">Current</span>
+                  <span className="badge">Photography</span>
+                  <span className="badge">Social Media</span>
+                  <span className="badge">Atlas Skilltech</span>
+                  <span className="badge">Gimbal — MTW Crew</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 max-w-2xl items-start">
+                  <div className="relative group overflow-hidden border border-zinc-800 hover:border-[#c8973a] transition-all duration-300 rounded">
+                    <img src="/assets/grind/atlas-intern/mtw_crew.jpg" alt="Mirror Gimbal Selfie" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                    <div className="absolute bottom-2 left-2 text-[10px] bg-black/75 px-2 py-0.5 rounded text-gray-400">Part of Crew of MTW</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chapter 06 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <img src="/assets/logos/team_mushak_logo_official.jpg" alt="Team Mushak" />
+              <span className="tl-logo-label">Team Mushak</span>
+            </div>
+            <div className="tl-year">Chapter 06 — Team Mushak &amp; NASA HERC</div>
+            <div className="tl-title">Social Media Manager</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Led the social media campaign for our autonomous lunar rover, driving 14M+ views and winning the international NASA HERC Social Media Award.
+            </div>
+
+            <div className="mt-4 max-w-sm">
+              <div className="relative group overflow-hidden border border-zinc-800 hover:border-[#c8973a] transition-all duration-300 rounded">
+                <img src="/assets/grind/mushak/nasa_award_photo.jpg" alt="NASA HERC Trophy close-up" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+              </div>
+            </div>
+
+            <button onClick={() => toggleChapter(6)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[6] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[6] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  Joined Team Mushak in <strong>Aug/Sep 2025</strong> as a coordinator, then became <strong>Social Media Manager</strong>. Drove <strong>14 million+ views</strong> across platforms with multiple million+ Instagram reels. The team competed in NASA's Human Exploration Rover Challenge (HERC), an international engineering competition. I built the content campaign around our journey, winning the prestigious <strong>Social Media Award at NASA HERC 2026</strong>.
+                  <br /><br />
+                  Though backed by an incredible team, this role demanded wearing nearly every hat—acting as a videographer, photographer, video editor, scriptwriter, and podcast producer. From handling public relations and cracking deals to managing back-to-back meetings, the role was relentlessly fast-paced. The constant spontaneity and last-minute changes taught me the true meaning of adaptability. It forged my ability to think critically on my feet, manage absolute chaos, and consistently deliver the best possible outcome under extreme time limits.
+                </div>
+                <div className="tl-badges">
+                  <span className="badge gold">NASA HERC Award — International</span>
+                  <span className="badge gold">14M+ Views</span>
+                  <span className="badge gold">Multiple 1M+ Reels Achieved</span>
+                  <span className="badge">Social Media Manager</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 max-w-2xl">
+                  <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "16/9", background: "#000" }}>
+                    <iframe className="w-full h-full border-none" src="https://www.youtube.com/embed/1uXjX8qE2gM" title="Team Mushak Podcast 1" allowFullScreen></iframe>
+                  </div>
+                  <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "16/9", background: "#000" }}>
+                    <iframe className="w-full h-full border-none" src="https://www.youtube.com/embed/-V-z2ROY2a4" title="Team Mushak Podcast 2" allowFullScreen></iframe>
+                  </div>
+                </div>
+                <div className="mt-8 mb-4 border border-zinc-800 rounded p-6 bg-black/40">
+                  <div className="text-xl font-bold text-[#c8973a] mb-2">NASA HERC Social Media Award</div>
+                  <p className="text-zinc-300 text-sm leading-relaxed mb-4">
+                    NASA's Human Exploration Rover Challenge is an <strong>international engineering competition</strong>. While the engineering team worked relentlessly on designing our autonomous lunar rover for sample collection, I directed the team's public-facing campaign. Result: we won the <strong>Social Media Award from NASA</strong>. As the Social Media Manager, I ran the campaign that drove <strong>14 million+ views</strong> across platforms, proving that storytelling is just as vital as the engineering behind the journey.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
+                    <div className="relative group overflow-hidden border border-[#c8973a] transition-all duration-300 rounded max-w-sm">
+                      <img src="/assets/grind/mushak/rover.jpg" alt="NASA HERC Rover Prototype" className="w-full h-auto block rounded grayscale group-hover:grayscale-0 transition-all duration-300" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chapter 05 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <img src="/assets/logos/legend_editx_logo.png" alt="Legend Edits" />
+              <span className="tl-logo-label">Legend Edits</span>
+            </div>
+            <div className="tl-year">Chapter 05 — The Rebuild</div>
+            <div className="tl-title">Monetised Sep 2025.</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Rebuilt Legend Edits from zero to 9K subscribers and 44M+ views, achieving YouTube monetization and mastering content consistency.
+            </div>
+
+            <div className="mt-4 max-w-xl">
+              <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "16/9", background: "#000", cursor: "default" }}>
+                <iframe
+                  className="w-full h-full border-none"
+                  src="https://www.youtube.com/embed/PiHlFYhsetU"
+                  title="First Cinematic Video - The Making of Idea"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                ></iframe>
+              </div>
+            </div>
+
+            <button onClick={() => toggleChapter(5)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[5] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[5] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  Started over. Zero subscribers, zero views, zero sympathy. Rebuilt <strong>Legend Edits</strong> from scratch with everything I'd built, lost, and learned. Hit <strong>YouTube monetisation in September 2025</strong>. Currently at <strong>9K subscribers and 44 million+ views</strong>. The first channel taught me how to grow. The second one taught me how to build something that lasts. It taught me the importance of consistency, pattern recognition, and how if you make something similar for a long time, it ends up being your identity — like a brand. In the long term, viewers recognize your content from frame one.
+                </div>
+                <div className="tl-badges">
+                  <span className="badge gold">44M+ Views</span>
+                  <span className="badge gold">Monetised — Sep 2025</span>
+                  <span className="badge">9K Subs</span>
+                  <span className="badge">Legend Edits</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 max-w-4xl">
+                  <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                    <iframe className="w-full h-full border-none" src="https://www.youtube.com/embed/h8uD77QQ6CM" title="Puppetry and Keyframe Animation" allowFullScreen></iframe>
+                  </div>
+                  <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                    <iframe className="w-full h-full border-none" src="https://www.youtube.com/embed/T4BxCXYxg3M" title="Favorite Edit" allowFullScreen></iframe>
+                  </div>
+                  <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                    <iframe className="w-full h-full border-none" src="https://www.youtube.com/embed/c4myn3h5nWE" title="Favorite Edit 2" allowFullScreen></iframe>
+                  </div>
+                  <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                    <iframe className="w-full h-full border-none" src="https://www.youtube.com/embed/99rnIK6wZA0" title="Unboxing Video" allowFullScreen></iframe>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chapter 04 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <img src="/assets/logos/rc_atlas_logo_official.jpg" alt="RC Atlas" />
+              <span className="tl-logo-label">RC Atlas</span>
+            </div>
+            <div className="tl-year">Chapter 04 — RC Atlas &amp; The Camera</div>
+            <div className="tl-title">Support Function Coordinator</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Transitioned to hands-on camera operation and lighting, shooting and editing professional podcasts, aftermovies, and event highlight reels.
+            </div>
+
+            <div className="mt-4 max-w-sm">
+              <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                <iframe className="w-full h-full border-none" src="https://www.instagram.com/p/C_r0abzN2f6/embed" title="MUNzil Reel 1" allowFullScreen></iframe>
+              </div>
+            </div>
+
+            <button onClick={() => toggleChapter(4)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[4] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[4] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  After losing the channel, joined <strong>RC Atlas</strong> as Support Function Coordinator. Competed in district-level events. This is where I first got properly introduced to <strong>camera operating and lighting</strong> — not theory, hands-on. Edited podcasts, aftermovies, highlight reels, announcement reels, motion graphics reels. Volunteered as Promotions Coordinator for <strong>MUNzil</strong> and <strong>Saathi</strong>. Shot and edited the <strong>Aawaz Podcast</strong>.
+                </div>
+                <div className="tl-badges">
+                  <span className="badge gold">Camera Operating</span>
+                  <span className="badge gold">Lighting</span>
+                  <span className="badge">RC Atlas</span>
+                  <span className="badge">Podcasts</span>
+                  <span className="badge">MUNzil · Saathi</span>
+                </div>
+                <div className="mt-6">
+                  <div className="text-xs uppercase tracking-widest text-[#c8973a] mb-2">// MUNzil Event</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mb-4">
+                    <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                      <iframe className="w-full h-full border-none" src="https://www.instagram.com/p/DAH-oFcRI01/embed" title="MUNzil Reel 2" allowFullScreen></iframe>
+                    </div>
+                  </div>
+                  <div className="text-xs uppercase tracking-widest text-[#c8973a] mb-2">// Saathi - The NGO Mela</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mb-4">
+                    <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                      <iframe className="w-full h-full border-none" src="https://www.instagram.com/p/DH_LoF6tDMr/embed" title="Saathi Reel" allowFullScreen></iframe>
+                    </div>
+                  </div>
+                  <div className="text-xs uppercase tracking-widest text-[#c8973a] mb-2">// Other RC Atlas Reels</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                    <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                      <iframe className="w-full h-full border-none" src="https://www.instagram.com/p/DA-9zbQNT_c/embed" title="RC Atlas Reel 1" allowFullScreen></iframe>
+                    </div>
+                    <div className="video-card w-full rounded overflow-hidden" style={{ aspectRatio: "9/16", background: "#000" }}>
+                      <iframe className="w-full h-full border-none" src="https://www.instagram.com/p/DBbUWi5t3KY/embed" title="RC Atlas Reel 2" allowFullScreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chapter 03 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <img src="/assets/logos/legend_editx_logo_old.jpg" alt="Legend Editx (original channel)" />
+              <span className="tl-logo-label">Original Channel</span>
+            </div>
+            <div className="tl-year">Chapter 03 — The Climb</div>
+            <div className="tl-title">0 → 35,000 Subscribers</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Started experimenting on mobile editors before grinding on a low-spec laptop to hit my first millions of views, growing to 35K subscribers before getting hacked.
+            </div>
+
+            <button onClick={() => toggleChapter(3)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[3] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[3] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  Started it for fun, got views, and just kept doing it for experimentation. Took everything learned from Discord and DFE, brought it back to my own channel, and applied it. <strong>Grew to 35,000 subscribers</strong>. Not luck — pattern recognition, iteration, and an obsessive amount of time in the edit suite.
+                  <br /><br />
+                  The technical journey was relentless. I started editing on KineMaster using my mom's phone, then upgraded to a 2GB RAM tablet, and eventually my personal phone. I cycled through every mobile editor imaginable—InShot, CapCut, Alight Motion, Node Video, PowerDirector, Filmora—before finally drawing the line at a CapCut + Alight Motion workflow. That exact mobile workflow landed my very first million-view reel on Instagram. 
+                  <br /><br />
+                  Later, I got my first laptop: an ASUS Vivobook S14x with 12GB of RAM and no dedicated graphics card. I grinded it to the absolute limit. I shifted to CapCut PC, where I hit my first million-view YouTube edit, and heavily taught myself Adobe After Effects during that same period.
+                  <br /><br />
+                  Then in <strong>September 2024</strong>, the channel got hacked. Gone. Overnight. Most people would've stopped here.
+                </div>
+                <div className="tl-badges">
+                  <span className="badge gold">35K Subs</span>
+                  <span className="badge">Hacked — Sep 2024</span>
+                  <span className="badge">Content Strategy</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chapter 02 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <img src="/assets/logos/dfe_logo_official.jpg" alt="DFE Productions" />
+              <span className="tl-logo-label">DFE Productions</span>
+            </div>
+            <div className="tl-year">Chapter 02 — Going Pro (Early)</div>
+            <div className="tl-title">DFE Productions</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Joined DFE Productions and other editing teams, learning the core fundamentals of viewer retention, editing for pacing, and content strategy.
+            </div>
+
+            <button onClick={() => toggleChapter(2)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[2] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[2] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  Later, I joined <strong><a href="https://www.youtube.com/@DFE-Productions" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gold)" }}>DFE Productions ↗</a></strong> and other editing teams. This was school. Not the kind with classrooms — the kind where you watch what gets views and what doesn't, what retains and what drops off, what editors do that makes a cut land. Absorbed everything. Implemented nothing yet. That part came next.
+                </div>
+                <div className="tl-badges">
+                  <span className="badge gold">DFE Productions</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chapter 01 */}
+          <div className="tl-item">
+            <div className="tl-dot"></div>
+            <div className="tl-logo">
+              <div className="w-8 h-8 rounded-full bg-zinc-800 border border-[#c8973a] flex items-center justify-center text-[10px] font-bold text-[#c8973a] tracking-widest">GI</div>
+              <span className="tl-logo-label">Galactic Imperative</span>
+            </div>
+            <div className="tl-year">Chapter 01 — The Spark</div>
+            <div className="tl-title">Galactic Imperative</div>
+            
+            <div className="tl-body text-[#c8973a] font-medium mt-2">
+              Shot and edited Rubik's cube tutorials on my mom's phone, landing my first viral spike and igniting my passion for content creation.
+            </div>
+
+            <button onClick={() => toggleChapter(1)} className="mt-4 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
+              {expandedChapters[1] ? "— Show Less" : "+ Read More"}
+            </button>
+
+            {expandedChapters[1] && (
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                <div className="tl-body">
+                  It all started on a forgotten channel named <strong>Galactic Imperative</strong>. I shot and edited "how to solve 3x3 and 2x2 Rubik's cube" tutorials entirely on my mom's phone. Six months after uploading, they randomly spiked to 1.7K and 900 views around a movie release. That was the initial spark. When I eventually got my 2GB RAM tablet, I took that grind straight to Instagram.
+                </div>
+              </div>
+            )}
+          </div>
+        </div>

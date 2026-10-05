@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Commercial music for the site player — kept local (copyright)
+/public/assets/music/
+
+# Original camera files (may contain location metadata)
+*.HEIC
+*.heic
