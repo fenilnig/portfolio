@@ -1,14 +1,18 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
+import { CrtBackground } from "@/shaders/crt/CrtBackground";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Fired when the film-leader intro starts leaving, so the hero can animate in underneath it
+const INTRO_DONE_EVENT = "film-intro-done";
 
 // Parses "44M+" / "3.05K" into its number, decimals and surrounding text for the count-up
 function parseStat(text: string) {
@@ -21,8 +25,7 @@ function parseStat(text: string) {
  * Page-wide scroll motion (GSAP + ScrollTrigger + SplitText):
  * - section titles rise in letter by letter
  * - the Grind timeline line draws itself as you scroll
- * - hero stats count up on load
- * - hero: projector warm-up of the CRT film leader on load, then a dolly-in + parallax on scroll
+ * - once the film intro clears: hero name rises in and stats count up
  * Renders nothing; skipped entirely for prefers-reduced-motion.
  */
 export function SiteMotion() {
@@ -56,45 +59,36 @@ export function SiteMotion() {
       );
     }
 
-    // Hero stats: count up from zero
-    document.querySelectorAll<HTMLElement>(".stat-num").forEach((el, i) => {
-      const stat = parseStat(el.textContent || "");
-      if (!stat) return;
-      const counter = { v: 0 };
-      gsap.to(counter, {
-        v: stat.value,
-        duration: 1.8,
-        delay: 0.6 + i * 0.12,
-        ease: "power3.out",
-        onUpdate: () => {
-          el.textContent = `${stat.prefix}${counter.v.toFixed(stat.decimals)}${stat.suffix}`;
-        },
+    // Hero entrance, held until the film intro starts clearing.
+    // Only .hero-name is tweened — elements with .fi already have CSS opacity/transform
+    // transitions, which fight GSAP tweens on the same properties.
+    const heroIn = () => {
+      gsap.from("#hero .hero-name", { yPercent: 25, opacity: 0, duration: 1, ease: "power3.out", clearProps: "opacity,transform" });
+
+      document.querySelectorAll<HTMLElement>(".stat-num").forEach((el, i) => {
+        const stat = parseStat(el.textContent || "");
+        if (!stat) return;
+        const counter = { v: 0 };
+        gsap.to(counter, {
+          v: stat.value,
+          duration: 1.8,
+          delay: 0.2 + i * 0.12,
+          ease: "power3.out",
+          onUpdate: () => {
+            el.textContent = `${stat.prefix}${counter.v.toFixed(stat.decimals)}${stat.suffix}`;
+          },
+        });
       });
-    });
-
-    // Hero intro: the film leader flickers on like a projector warming up, then the name rises in.
-    // Only .hero-name is tweened — elements with .fi already have CSS opacity/transform transitions,
-    // which fight GSAP tweens on the same properties.
-    const frame = document.querySelector<HTMLElement>("#hero .shader-frame");
-    const heroContent = document.querySelector<HTMLElement>("#hero > .relative");
-    if (frame) {
-      gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .fromTo(frame, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.6, ease: "expo.out" })
-        .to(frame, { opacity: 0.55, duration: 0.06, repeat: 3, yoyo: true, ease: "none" }, 0.15)
-        .from("#hero .hero-name", { yPercent: 25, opacity: 0, duration: 1, clearProps: "opacity,transform" }, 0.35);
-
-      // Scrolling out of the hero: the leader dollies in and fades while the text drifts up faster (parallax)
-      gsap
-        .timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 0.8 } })
-        .to(frame, { scale: 1.18, opacity: 0.25, ease: "none" }, 0)
-        .to(heroContent, { yPercent: -18, ease: "none" }, 0);
-    }
+    };
+    window.addEventListener(INTRO_DONE_EVENT, heroIn, { once: true });
 
     // Layout shifts (expanding chapters, lazy images) move trigger positions
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
-    return () => window.removeEventListener("load", refresh);
+    return () => {
+      window.removeEventListener("load", refresh);
+      window.removeEventListener(INTRO_DONE_EVENT, heroIn);
+    };
   });
 
   // Spotlight cards: a soft glow that follows the cursor (delegated, so it covers every .spotlight)
@@ -111,4 +105,78 @@ export function SiteMotion() {
   }, []);
 
   return null;
+}
+
+const INTRO_SECONDS = 3;
+const INTRO_EXIT = 0.6;
+// The cinematic leader counts 8 → 2 over 7s of its own time and then flashes;
+// run it fast enough that the whole countdown lands just before the exit fade.
+const INTRO_LEADER_SPEED = 2.8;
+
+/**
+ * Full-screen loading intro: ThreeUI's cinematic film-leader CrtBackground for ~3 seconds,
+ * then a GSAP fade/zoom-out into the site. Click or any key skips it. Unmounts afterwards so
+ * the WebGL renderer stops; a CSS failsafe (.film-intro) hides it even if JS never runs.
+ */
+export function FilmIntro() {
+  const [show, setShow] = useState(true);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || prefersReducedMotion()) {
+      setShow(false);
+      window.dispatchEvent(new Event(INTRO_DONE_EVENT));
+      return;
+    }
+
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    let leaving = false;
+    let backstop = 0;
+
+    const finish = () => {
+      root.style.overflow = "";
+      setShow(false);
+    };
+    const leave = () => {
+      if (leaving) return;
+      leaving = true;
+      window.dispatchEvent(new Event(INTRO_DONE_EVENT));
+      gsap.to(el, { opacity: 0, scale: 1.06, duration: INTRO_EXIT, ease: "power2.in", onComplete: finish });
+      // GSAP runs on requestAnimationFrame, which stalls in background tabs; a plain timer
+      // guarantees the scroll lock is released and the intro unmounts on schedule regardless.
+      backstop = window.setTimeout(finish, INTRO_EXIT * 1000 + 250);
+    };
+
+    // Count from page open (performance.now() starts at navigation), not from React mount,
+    // so the visitor waits ~3s in total; keep at least 0.8s on screen after a slow load.
+    const holdMs = Math.max(800, (INTRO_SECONDS - INTRO_EXIT) * 1000 - performance.now());
+    const timer = window.setTimeout(leave, holdMs);
+    el.addEventListener("click", leave);
+    window.addEventListener("keydown", leave);
+    return () => {
+      window.clearTimeout(timer);
+      window.clearTimeout(backstop);
+      el.removeEventListener("click", leave);
+      window.removeEventListener("keydown", leave);
+      root.style.overflow = "";
+    };
+  }, []);
+
+  if (!show) return null;
+  return (
+    <div ref={ref} className="film-intro" aria-hidden="true">
+      <CrtBackground
+        variant="cinematic"
+        speed={INTRO_LEADER_SPEED}
+        motion={1.00}
+        hue={0}
+        saturation={1.00}
+        brightness={1.00}
+        opacity={1.00}
+      />
+      <span className="film-intro-skip">Click or press any key to skip</span>
+    </div>
+  );
 }

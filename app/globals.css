@@ -369,8 +369,20 @@ footer { border-top: 1px solid var(--dim); padding: 2rem 3rem; display: flex; ju
 
 /* ── MOTION LAYER (see app/motion.tsx) ───────────────────── */
 
-/* ThreeUI CrtBackground (cinematic film leader) filling the hero behind its content */
-.shader-frame { position: absolute; inset: 0; z-index: 0; pointer-events: none; will-change: transform, opacity; }
+/* 3-second loading intro: ThreeUI CrtBackground film leader (FilmIntro in motion.tsx).
+   Sits under the page grain/vignette (9997–9998) and the custom cursor (10000).
+   The delayed animation is a failsafe so the site is never stuck behind it without JS. */
+.film-intro {
+  position: fixed; inset: 0; z-index: 9990; background: #07070a; cursor: pointer;
+  animation: film-intro-failsafe 0.01s linear 5s forwards;
+}
+@keyframes film-intro-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+.film-intro-skip {
+  position: absolute; left: 50%; bottom: 1.4rem; transform: translateX(-50%); z-index: 1;
+  font-family: var(--font-ibm-plex), monospace; font-size: 0.55rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: rgba(236,236,240,0.45); white-space: nowrap; pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) { .film-intro { display: none; } }
 
 /* Section titles are revealed by GSAP SplitText instead of the generic .fi fade */
 .sec-title.fi { opacity: 1; transform: none; transition: none; }
