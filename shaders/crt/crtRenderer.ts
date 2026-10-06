@@ -19,7 +19,8 @@ const COLORS = { p: { fill: "#8df0b4", glow: "rgba(28,236,132,0.95)" }, d: { fil
 const lineLength = (line: Segment[]) => line.reduce((total, item) => total + item.t.length, 0); const TOTAL = LOG.reduce((total, line) => total + lineLength(line), 0); const MAX_CHARS = Math.max(...LOG.map(lineLength));
 /* backing-store ceiling: the composite is one triangle, so the cost that matters is
    the 2D screen redraw and its upload, not the fragment pass */
-const MAX_BUFFER_WIDTH = 1920, MIN_BUFFER_WIDTH = 640, MAX_BUFFER_PIXELS = 2_400_000;
+/* LOCAL CHANGE: ceilings lowered from 1920 / 2.4M so the load-time intro is cheap while the page is still hydrating */
+const MAX_BUFFER_WIDTH = 1280, MIN_BUFFER_WIDTH = 640, MAX_BUFFER_PIXELS = 1_100_000;
 function compile(gl: WebGLRenderingContext, type: number, source: string) { const shader = gl.createShader(type); if (!shader) throw new Error("Unable to create CRT shader"); gl.shaderSource(shader, source); gl.compileShader(shader); if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(shader) ?? "CRT shader compilation failed"); return shader; }
 
 export function createCrtRenderer(host: HTMLElement, canvas: HTMLCanvasElement, getOptions: () => CrtOptions) {

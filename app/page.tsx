@@ -441,7 +441,7 @@ export default function Home() {
   return (
     <>
       <FilmIntro />
-      <audio ref={audioRef} preload="auto" src={tracks[0].src} />
+      <audio ref={audioRef} preload="metadata" src={tracks[0].src} />
       {/* Custom Cursor */}
       <div className="cur" id="cur"></div>
       <div className="cur-ring" id="curRing"></div>
@@ -699,13 +699,13 @@ export default function Home() {
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 max-w-2xl mb-6 fi" style={{ transitionDelay: "0.22s" }}>
               <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded aspect-[4/5]">
-                <img src="/assets/introduction/user_img_125k.jpg" alt="Lens Close-up" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                <img loading="lazy" decoding="async" src="/assets/introduction/user_img_125k.jpg" alt="Lens Close-up" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
               </div>
               <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded aspect-[4/5]">
-                <img src="/assets/introduction/user_img_89k.jpg" alt="Sunset Camera" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                <img loading="lazy" decoding="async" src="/assets/introduction/user_img_89k.jpg" alt="Sunset Camera" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
               </div>
               <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded aspect-[4/5]">
-                <img src="/assets/introduction/img_1791.jpg" alt="Camera Setup" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                <img loading="lazy" decoding="async" src="/assets/introduction/img_1791.jpg" alt="Camera Setup" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
               </div>
             </div>
 
@@ -719,7 +719,7 @@ export default function Home() {
             
             {/* Inline Rubik's Cubes Image */}
             <div className="mt-6 max-w-sm relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded fi" style={{ transitionDelay: "0.28s" }}>
-              <img 
+              <img loading="lazy" decoding="async" 
                 src="/assets/introduction/rubiks_cubes_photo.jpg" 
                 alt="Rubik's cube collection with Monster Energy and Diet Coke" 
                 className="w-full h-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" 
@@ -862,19 +862,19 @@ export default function Home() {
         {showAnalytics && (
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-8 max-w-5xl mx-auto">
             <div className="relative overflow-hidden border border-[var(--dim)] rounded group">
-              <img src="/assets/analytics/media__1781930910163.jpg" alt="Analytics Proof 1" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+              <img loading="lazy" decoding="async" src="/assets/analytics/media__1781930910163.jpg" alt="Analytics Proof 1" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
             </div>
             <div className="relative overflow-hidden border border-[var(--dim)] rounded group">
-              <img src="/assets/analytics/media__1781930910165.jpg" alt="Analytics Proof 2" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+              <img loading="lazy" decoding="async" src="/assets/analytics/media__1781930910165.jpg" alt="Analytics Proof 2" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
             </div>
             <div className="relative overflow-hidden border border-[var(--dim)] rounded group">
-              <img src="/assets/analytics/media__1781930910169.jpg" alt="Analytics Proof 3" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+              <img loading="lazy" decoding="async" src="/assets/analytics/media__1781930910169.jpg" alt="Analytics Proof 3" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
             </div>
             <div className="relative overflow-hidden border border-[var(--dim)] rounded group">
-              <img src="/assets/analytics/media__1781930910172.jpg" alt="Analytics Proof 4" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+              <img loading="lazy" decoding="async" src="/assets/analytics/media__1781930910172.jpg" alt="Analytics Proof 4" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
             </div>
             <div className="relative overflow-hidden border border-[var(--dim)] rounded group">
-              <img src="/assets/analytics/media__1781930910194.jpg" alt="Analytics Proof 5" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+              <img loading="lazy" decoding="async" src="/assets/analytics/media__1781930910194.jpg" alt="Analytics Proof 5" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
             </div>
           </div>
         )}
@@ -897,7 +897,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot" style={{ backgroundColor: "var(--gold)", borderColor: "var(--gold)" }}></div>
             <div className="tl-logo">
-              <img src="/assets/logos/m33_logo.jpg" alt="m33" />
+              <img loading="lazy" decoding="async" src="/assets/logos/m33_logo.jpg" alt="m33" />
               <span className="tl-logo-label">m33</span>
             </div>
             <div className="tl-year text-[var(--gold)] font-bold">Chapter 08 — Active · Creative Director</div>
@@ -928,7 +928,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot"></div>
             <div className="tl-logo">
-              <img src="/assets/logos/atlas_logo_official.png" alt="Atlas Skilltech University" />
+              <img loading="lazy" decoding="async" src="/assets/logos/atlas_logo_official.png" alt="Atlas Skilltech University" />
               <span className="tl-logo-label">Atlas Skilltech University</span>
             </div>
             <div className="tl-year">Chapter 07 — Present</div>
@@ -940,7 +940,7 @@ export default function Home() {
 
             <div className="mt-4 max-w-sm">
               <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-                <img src="/assets/grind/atlas-intern/mtw_crew.jpg" alt="Mirror Gimbal Selfie" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                <img loading="lazy" decoding="async" src="/assets/grind/atlas-intern/mtw_crew.jpg" alt="Mirror Gimbal Selfie" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
                 <div className="absolute bottom-2 left-2 text-[10px] bg-[var(--black)]/75 px-2 py-0.5 rounded text-gray-400">Part of Crew of MTW</div>
               </div>
             </div>
@@ -963,7 +963,7 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 max-w-2xl items-start">
                   <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-                    <img src="/assets/grind/atlas-intern/sony_camera_user.jpg" alt="Sony A6700 B&W" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                    <img loading="lazy" decoding="async" src="/assets/grind/atlas-intern/sony_camera_user.jpg" alt="Sony A6700 B&W" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
                     <div className="absolute bottom-2 left-2 text-[10px] bg-[var(--black)]/75 px-2 py-0.5 rounded text-gray-400">Sony A6700 B&W 105mm</div>
                   </div>
                 </div>
@@ -975,7 +975,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot"></div>
             <div className="tl-logo">
-              <img src="/assets/logos/team_mushak_logo_new.jpg" alt="Team Mushak" />
+              <img loading="lazy" decoding="async" src="/assets/logos/team_mushak_logo_new.jpg" alt="Team Mushak" />
               <span className="tl-logo-label">Team Mushak</span>
             </div>
             <div className="tl-year">Chapter 06 — Team Mushak &amp; NASA HERC</div>
@@ -987,7 +987,7 @@ export default function Home() {
 
             <div className="mt-4 max-w-sm">
               <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-                <img src="/assets/grind/mushak/nasa_award_photo.jpg" alt="NASA HERC Trophy close-up" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
+                <img loading="lazy" decoding="async" src="/assets/grind/mushak/nasa_award_photo.jpg" alt="NASA HERC Trophy close-up" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-300" />
               </div>
             </div>
 
@@ -1049,7 +1049,7 @@ export default function Home() {
                   </p>
                   <div className="flex flex-col sm:flex-row items-start gap-4">
                     <div className="relative group overflow-hidden border border-[#c8973a] transition-all duration-300 rounded max-w-sm">
-                      <img src="/assets/grind/mushak/rover.jpg" alt="NASA HERC Rover Prototype" className="w-full h-auto block rounded grayscale group-hover:grayscale-0 transition-all duration-300" />
+                      <img loading="lazy" decoding="async" src="/assets/grind/mushak/rover.jpg" alt="NASA HERC Rover Prototype" className="w-full h-auto block rounded grayscale group-hover:grayscale-0 transition-all duration-300" />
                     </div>
                   </div>
                 </div>
@@ -1061,7 +1061,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot"></div>
             <div className="tl-logo">
-              <img src="/assets/logos/legend_editx_logo.png" alt="Legend Edits" />
+              <img loading="lazy" decoding="async" src="/assets/logos/legend_editx_logo.png" alt="Legend Edits" />
               <span className="tl-logo-label">Legend Edits</span>
             </div>
             <div className="tl-year">Chapter 05 — The Rebuild</div>
@@ -1120,7 +1120,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot"></div>
             <div className="tl-logo">
-              <img src="/assets/logos/rc_atlas_logo_official.jpg" alt="RC Atlas" />
+              <img loading="lazy" decoding="async" src="/assets/logos/rc_atlas_logo_official.jpg" alt="RC Atlas" />
               <span className="tl-logo-label">RC Atlas</span>
             </div>
             <div className="tl-year">Chapter 04 — RC Atlas &amp; The Camera</div>
@@ -1162,7 +1162,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot"></div>
             <div className="tl-logo">
-              <img src="/assets/logos/legend_editx_logo_old.jpg" alt="Legend Editx (original channel)" />
+              <img loading="lazy" decoding="async" src="/assets/logos/legend_editx_logo_old.jpg" alt="Legend Editx (original channel)" />
               <span className="tl-logo-label">Original Channel</span>
             </div>
             <div className="tl-year">Chapter 03 — The Climb</div>
@@ -1198,7 +1198,7 @@ export default function Home() {
           <div className="tl-item">
             <div className="tl-dot"></div>
             <div className="tl-logo">
-              <img src="/assets/logos/dfe_logo_official.jpg" alt="DFE Productions" />
+              <img loading="lazy" decoding="async" src="/assets/logos/dfe_logo_official.jpg" alt="DFE Productions" />
               <span className="tl-logo-label">DFE Productions</span>
             </div>
             <div className="tl-year">Chapter 02 — Going Pro (Early)</div>
@@ -1720,49 +1720,49 @@ export default function Home() {
         {showPhotography && (
           <div className="columns-2 sm:columns-3 gap-3 max-w-3xl" style={{ marginTop: "2rem" }}>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/user_img_48k.jpg" alt="Building Structure" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/user_img_48k.jpg" alt="Building Structure" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/new_img_127k.jpg" alt="On Set Lighting" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/new_img_127k.jpg" alt="On Set Lighting" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/new_img_102k.jpg" alt="Motion Blur Dog" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/new_img_102k.jpg" alt="Motion Blur Dog" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/v2_img_2.jpg" alt="Varanasi Priest" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/v2_img_2.jpg" alt="Varanasi Priest" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/v2_img_5.jpg" alt="Monkey Sunset" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/v2_img_5.jpg" alt="Monkey Sunset" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/user_img_51k.jpg" alt="Solar Car Prototype" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/user_img_51k.jpg" alt="Solar Car Prototype" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/red_lamp.jpg" alt="Red Desk Lamp" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/red_lamp.jpg" alt="Red Desk Lamp" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/hallway_arch.jpg" alt="Hallway Arch Silhouette" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/hallway_arch.jpg" alt="Hallway Arch Silhouette" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/birds_sky.jpg" alt="Birds flying in the Sky" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/birds_sky.jpg" alt="Birds flying in the Sky" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/photo_bee.jpg" alt="Bee near light" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/photo_bee.jpg" alt="Bee near light" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/photo_metro.jpg" alt="Person waiting at Metro" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/photo_metro.jpg" alt="Person waiting at Metro" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/photo_redbull.jpg" alt="Red Bull Can" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/photo_redbull.jpg" alt="Red Bull Can" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/photo_traffic.jpg" alt="Highway Traffic Trails" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/photo_traffic.jpg" alt="Highway Traffic Trails" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/photo_light_trails.jpg" alt="City Light Trails" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/photo_light_trails.jpg" alt="City Light Trails" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="break-inside-avoid mb-3 relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/photography/rover_indoor.jpg" alt="Indoor Rover with Controller" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/photography/rover_indoor.jpg" alt="Indoor Rover with Controller" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
         </div>
         )}
@@ -1778,16 +1778,16 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl" style={{ marginTop: "2rem" }}>
           <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/fun-moments/v2_img_1.jpg" alt="Triangle Inside Wheels" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/fun-moments/v2_img_1.jpg" alt="Triangle Inside Wheels" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/fun-moments/user_img_83k.jpg" alt="Fenil Gimbal on Set" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/fun-moments/user_img_83k.jpg" alt="Fenil Gimbal on Set" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/fun-moments/funny_camera.jpg" alt="Camera with Funny Glasses" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/fun-moments/funny_camera.jpg" alt="Camera with Funny Glasses" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
           <div className="relative group overflow-hidden border border-[var(--dim)] hover:border-[var(--gold)] transition-all duration-300 rounded">
-            <img src="/assets/fun-moments/macro_lens.jpg" alt="Macro Lens attached to Camera" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+            <img loading="lazy" decoding="async" src="/assets/fun-moments/macro_lens.jpg" alt="Macro Lens attached to Camera" className="w-full h-auto block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
           </div>
         </div>
       </section>
@@ -1808,7 +1808,7 @@ export default function Home() {
            
            <div className="flex flex-col sm:flex-row gap-6 relative z-10 items-start">
              <div className="w-16 h-16 shrink-0 rounded-full flex items-center justify-center overflow-hidden">
-               <img src="/assets/logos/atlas_logo_official.png" alt="Atlas Skilltech University" className="w-full h-full object-contain rounded-full" />
+               <img loading="lazy" decoding="async" src="/assets/logos/atlas_logo_official.png" alt="Atlas Skilltech University" className="w-full h-full object-contain rounded-full" />
              </div>
              <div>
                <h3 className="text-xl font-bold text-[var(--off-white)] tracking-wide">Atlas Skilltech University</h3>
@@ -1820,10 +1820,10 @@ export default function Home() {
                
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mt-4">
                  <div className="relative group overflow-hidden border border-[var(--dim)] transition-all duration-300 rounded aspect-[4/3]">
-                   <img src="/assets/education/new_img_243k.jpg" alt="Atlas Skilltech Campus" className="w-full h-full object-cover block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                   <img loading="lazy" decoding="async" src="/assets/education/new_img_243k.jpg" alt="Atlas Skilltech Campus" className="w-full h-full object-cover block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
                  </div>
                  <div className="relative group overflow-hidden border border-[var(--dim)] transition-all duration-300 rounded aspect-[4/3]">
-                   <img src="/assets/education/award_trophy_photo.jpg" alt="Award Trophy" className="w-full h-full object-cover block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
+                   <img loading="lazy" decoding="async" src="/assets/education/award_trophy_photo.jpg" alt="Award Trophy" className="w-full h-full object-cover block grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" />
                  </div>
                </div>
              </div>
