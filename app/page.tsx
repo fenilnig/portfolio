@@ -545,7 +545,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 w-full z-10 relative">
           <div className="flex-1 flex flex-col justify-end">
             {/* Camera Viewfinder HUD */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-mono tracking-widest text-[var(--muted)] mb-3 fi">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-mono tracking-widest text-[var(--muted)] mb-6 fi">
               <span className="flex items-center gap-1.5 text-[var(--red)] font-bold">
                 <span className="w-2 h-2 rounded-full bg-[var(--red)] animate-pulse inline-block"></span>
                 REC

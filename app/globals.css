@@ -194,7 +194,8 @@ nav {
 /* HERO */
 #hero {
   min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 0 3rem 5rem; position: relative; overflow: hidden;
+  /* top clears the fixed nav on short screens; bottom clears the fixed music player (~10rem tall incl. offset) */
+  padding: 7rem 3rem 11rem; position: relative; overflow: hidden;
 }
 .hero-bg-text {
   position: absolute; top: 50%; left: -2%; transform: translateY(-50%);
@@ -242,7 +243,9 @@ h1.hero-name .gb { color: #1e6e8c; animation: gb 5s infinite; clip-path: polygon
 .fi.v { opacity: 1; transform: translateY(0); }
 
 /* SECTIONS */
-.sec { padding: 7rem 3rem; max-width: 1200px; margin: 0 auto; }
+/* width: 100% matters: <body> is a flex column, where margin:auto alone shrink-wraps each section
+   to its content and every section ends up with a different left edge */
+.sec { padding: 7rem 3rem; max-width: 1200px; margin: 0 auto; width: 100%; }
 .sec-tag { font-size: 0.58rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
 .sec-title { font-family: var(--font-bebas), sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; letter-spacing: 0.02em; margin-bottom: 3.5rem; }
 
@@ -367,7 +370,7 @@ footer { border-top: 1px solid var(--dim); padding: 2rem 3rem; display: flex; ju
   nav { padding: 1.2rem 1.5rem; }
   .nav-links { display: none; }
   .theme-toggle { margin-left: auto; width: 40px; height: 40px; font-size: 18px; }
-  #hero { padding: 0 1.5rem 3rem; }
+  #hero { padding: 6rem 1.5rem 4rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
   .sec { padding: 5rem 1.5rem; }
   .videos-grid, .photos-grid { grid-template-columns: 1fr; }
